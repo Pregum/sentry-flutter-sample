@@ -77,14 +77,16 @@ class _MyHomePageState extends State<MyHomePage> {
     try {
       throw Exception('intendedly occurs error');
     } catch (exception, stackTrace) {
-      final bytes = await _screenCapture();
+      // final bytes = await _screenCapture();
 
-      final attachment =
-          SentryAttachment.fromUint8List(bytes, 'screenshot_samp.png');
-      await Sentry.captureException(exception, stackTrace: stackTrace,
-          withScope: (scope) async {
-        scope.addAttachment(attachment);
-      });
+      // final attachment =
+      //     SentryAttachment.fromUint8List(bytes, 'screenshot_samp.png');
+      await Sentry.captureException(
+        exception, stackTrace: stackTrace,
+        //   withScope: (scope) async {
+        // scope.addAttachment(attachment);
+        // }
+      );
 
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
