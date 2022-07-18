@@ -1,16 +1,31 @@
-# error_reporter
+# screenshot付きエラーレポート送信サンプル
 
-A new Flutter project.
+このブランチはエラー発生時にレポートを送信するサンプルです。
 
-## Getting Started
+## 注意点
 
-This project is a starting point for a Flutter application.
+このプログラムを動かすには、Sentryで作成したプロジェクトのDSNの設定が必要です。
 
-A few resources to get you started if this is your first Flutter project:
+DSNとは？Sentryとは？といった方は下記を参照ください。
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+* https://docs.sentry.io/platforms/flutter/
+* https://sentry.io/welcome/?utm_source=google&utm_medium=cpc&utm_campaign=9575834316&utm_content=g&utm_term=sentry&device=c&gclid=Cj0KCQjwidSWBhDdARIsAIoTVb1SQ6HmZwiqv4BKfEbsInaePWPKPLWJ4rjaR09obwO1A03IB91VqyoaAnlbEALw_wcB&gclid=Cj0KCQjwidSWBhDdARIsAIoTVb1SQ6HmZwiqv4BKfEbsInaePWPKPLWJ4rjaR09obwO1A03IB91VqyoaAnlbEALw_wcB
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+main.dartの下記部分を変更してください。
+
+```dart
+Future<void> main() async {
+  await SentryFlutter.init(
+    (options) {
+      // ↓↓↓ ここに自分のプロジェクトのdsnを設定
+      options.dsn =
+          'https://xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx@xxxxxxxx.ingest.sentry.io/xxxxxxx';
+      // ↑↑↑ ここに自分のプロジェクトのdsnを設定
+      options.tracesSampleRate = 1.0;
+    },
+    appRunner: () => runApp(
+      const MyApp(),
+    ),
+  );
+}
+```
